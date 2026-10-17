@@ -34,10 +34,11 @@ jobs:
       - name: Install MAUI workload
         run: dotnet workload install maui-windows
 
-      # Restrict restore to the Windows target: with -r win-x64, restoring the iOS target as well
-      # asks NuGet for a Mono win-x64 runtime pack that doesn't exist.
+      # WindowsOnly restricts restore to the Windows target: with -r win-x64, restoring the iOS
+      # target as well asks NuGet for a Mono win-x64 runtime pack that doesn't exist. (A global
+      # TargetFrameworks property would also override VocalCoach.Core's own target.)
       - name: Publish
-        run: dotnet publish $env:PROJECT -c Release -r win-x64 --self-contained true -f net10.0-windows10.0.19041.0 -p:TargetFrameworks=net10.0-windows10.0.19041.0 -p:WindowsPackageType=None -p:WindowsAppSDKSelfContained=true -o publish
+        run: dotnet publish $env:PROJECT -c Release -r win-x64 --self-contained true -f net10.0-windows10.0.19041.0 -p:WindowsOnly=true -p:WindowsPackageType=None -p:WindowsAppSDKSelfContained=true -o publish
 
       - name: Zip
         shell: pwsh

@@ -4,6 +4,8 @@
 		<!-- iOS is the eventual mobile target; Windows is the desktop dev/test target. -->
 		<TargetFrameworks>net10.0-ios</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Release builds pass -p:WindowsOnly=true so restore skips the iOS target. -->
+		<TargetFrameworks Condition="'$(WindowsOnly)' == 'true'">net10.0-windows10.0.19041.0</TargetFrameworks>
 
 		<OutputType>Exe</OutputType>
 		<RootNamespace>VocalCoach.App</RootNamespace>
