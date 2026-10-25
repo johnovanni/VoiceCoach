@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.LifecycleEvents;
 using VocalCoach.App.Pages;
 using VocalCoach.App.Services;
 using VocalCoach.Core.Progress;
@@ -48,6 +49,13 @@ public static class MauiProgram
         builder.Services.AddTransient<RangeFinderPage>();
         builder.Services.AddTransient<SettingsPage>();
 
+#if WINDOWS
+        // Open maximized on Windows.
+        builder.ConfigureLifecycleEvents(events => events.AddWindows(windows => windows.OnWindowCreated(window =>
+        {
+            if (window.AppWindow.Presenter is Microsoft.UI.Windowing.OverlappedPresenter presenter) presenter.Maximize();
+        })));
+#endif
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
