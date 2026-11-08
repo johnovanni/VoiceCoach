@@ -9,8 +9,9 @@ name: Release
 # (account JohnApolloni, profile JohnApolloniPublic; same settings as build/signing/metadata.json).
 # They run in the "release" environment and sign in to Azure with GitHub's OIDC token, which needs
 # repository variables AZURE_CLIENT_ID, AZURE_TENANT_ID and AZURE_SUBSCRIPTION_ID, and an Entra app
-# with a federated credential for repo:johnovanni/VoiceCoach:environment:release that holds the
-# "Artifact Signing Certificate Profile Signer" role on the account.
+# with a federated credential for the "release" environment that holds the "Artifact Signing
+# Certificate Profile Signer" role on the account. This repo uses GitHub's immutable OIDC subject,
+# so the credential's subject is repo:johnovanni@11181099/VoiceCoach@1413498154:environment:release.
 
 on:
   push:
