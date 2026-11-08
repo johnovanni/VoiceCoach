@@ -480,3 +480,7 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Release zip produced by build/Sign-Release.ps1
+VocalCoach-win-x64.zip
+VocalCoach-win-x64.zip.sha256
